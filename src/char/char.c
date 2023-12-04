@@ -1735,6 +1735,10 @@ static int char_make_new_char_sql(struct char_session_data *sd, const char *name
 			return -2; // Char Creation Denied
 	}
 
+	// limit gm account to first char slot
+	if ( slot != 0 && sd->group_id > 10 && sd->group_id < 99 )
+		return -2;
+
 	//check other inputs
 #if PACKETVER >= 20120307
 	if(slot < 0 || slot >= sd->char_slots)
